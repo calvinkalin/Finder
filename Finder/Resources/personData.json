@@ -1,0 +1,82 @@
+[
+    {
+        "id": 1,
+        "name": "John Doe",
+        "coordinates": {
+            "latitude": 55.7558,
+            "longitude": 37.6176
+        }
+    },
+    {
+        "id": 2,
+        "name": "Jane Smith",
+        "coordinates": {
+            "latitude": 55.7600,
+            "longitude": 37.6200
+        }
+    },
+    {
+        "id": 3,
+        "name": "Alice Johnson",
+        "coordinates": {
+            "latitude": 55.7650,
+            "longitude": 37.6250
+        }
+    },
+    {
+        "id": 4,
+        "name": "Bob Brown",
+        "coordinates": {
+            "latitude": 55.7700,
+            "longitude": 37.6300
+        }
+    },
+    {
+        "id": 5,
+        "name": "Charlie Davis",
+        "coordinates": {
+            "latitude": 55.7750,
+            "longitude": 37.6350
+        }
+    },
+    {
+        "id": 6,
+        "name": "Eve White",
+        "coordinates": {
+            "latitude": 55.7800,
+            "longitude": 37.6400
+        }
+    },
+    {
+        "id": 7,
+        "name": "Frank Wilson",
+        "coordinates": {
+            "latitude": 55.7850,
+            "longitude": 37.6450
+        }
+    },
+    {
+        "id": 8,
+        "name": "Grace Lee",
+        "coordinates": {
+            "latitude": 55.7900,
+            "longitude": 37.6500
+        }
+    },
+    {
+        "id": 9,
+        "name": "Henry Harris",
+        "coordinates": {
+            "latitude": 55.7950,
+            "longitude": 37.6550
+        }
+    },
+    {
+        "id": 10,
+        "name": "Ivy Clark",
+        "coordinates": {
+            "latitude": 55.8000,
+            "longitude": 37.6600
+        }
+    }
+]

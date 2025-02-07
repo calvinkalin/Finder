@@ -11,7 +11,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		2606E4B62D5508F000872A40 /* Finder */ = {
+		2606E4E22D550F7700872A40 /* Finder */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Finder;
 			sourceTree = "<group>";
@@ -32,7 +32,7 @@
 		2606E4AB2D5508F000872A40 = {
 			isa = PBXGroup;
 			children = (
-				2606E4B62D5508F000872A40 /* Finder */,
+				2606E4E22D550F7700872A40 /* Finder */,
 				2606E4B52D5508F000872A40 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -61,7 +61,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				2606E4B62D5508F000872A40 /* Finder */,
+				2606E4E22D550F7700872A40 /* Finder */,
 			);
 			name = Finder;
 			packageProductDependencies = (
@@ -255,12 +255,13 @@
 				DEVELOPMENT_TEAM = 872LLLS9PY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to calculate distances.\n\n";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 17;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -269,7 +270,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.calvinkalin.Finder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -285,12 +286,13 @@
 				DEVELOPMENT_TEAM = 872LLLS9PY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to calculate distances.\n\n";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 17;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -299,7 +301,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.calvinkalin.Finder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
