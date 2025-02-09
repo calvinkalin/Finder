@@ -7,46 +7,76 @@
 
 import SwiftUI
 import CoreLocation
+import Combine
 
-@Observable
-class PersonListViewModel: NSObject, CLLocationManagerDelegate {
+@MainActor
+class PersonListViewModel: NSObject, ObservableObject {
     @Published var persons: [Person] = []
     @Published var selectedPerson: Person?
     @Published var userLocation: CLLocationCoordinate2D?
+    @Published var isLoading = true
     
+    private var personService: PersonService?
     private let locationManager = CLLocationManager()
-    private let personService = PersonService()
-    
+    private var cancellable: Set<AnyCancellable> = []
+
     override init() {
         super.init()
-        self.persons = personService.persons
         
         Task {
-            for await newPersons in personService.$persons.values {
-                self.persons = newPersons
-            }
+            let service = PersonService(personListViewModel: self)
+            self.personService = service
+            self.isLoading = true
+            self.persons = service.persons
+            self.isLoading = false
+            
+            service.$persons
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] newPersons in
+                    self?.persons = newPersons
+                }
+                .store(in: &cancellable)
+            
+            await service.startUpdatingCoordinates()
         }
     }
     
-    private func setupLocationManager() {
+    func setupLocationManager() {
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        userLocation = locations.last?.coordinate
-    }
-    
     func distance(to person: Person) -> String {
-        guard let userLocation = userLocation else { return "?? km" }
+        let referenceLocation: CLLocationCoordinate2D
+        
+        if let selectedPerson = selectedPerson {
+            referenceLocation = selectedPerson.locationCoordinate
+        } else if let userLocation = userLocation {
+            referenceLocation = userLocation
+        } else {
+            return "?? km"
+        }
         
         let personLocation = person.locationCoordinate
-        let distanceMeters = userLocation.distance(to: personLocation)
+        let distanceMeters = referenceLocation.distance(to: personLocation)
         return String(format: "%.1f km", distanceMeters / 1000)
     }
     
     func toggleSelection(for person: Person) {
         selectedPerson = (selectedPerson?.id == person.id) ? nil : person
+        objectWillChange.send()
     }
 }
+
+// MARK: - CLLocationManagerDelegate
+extension PersonListViewModel: CLLocationManagerDelegate {
+    nonisolated func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let lastLocation = locations.last else { return }
+        
+        Task { @MainActor in
+            self.userLocation = lastLocation.coordinate
+        }
+    }
+}
+

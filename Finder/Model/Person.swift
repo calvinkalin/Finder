@@ -13,9 +13,9 @@ struct Person: Hashable, Codable, Identifiable {
     var id: Int
     var name: String
     
-    private var avatarName: String
+    var avatarname: String
     var avatar: Image {
-        Image(avatarName)
+        Image(avatarname)
     }
     
     var coordinates: Coordinates
