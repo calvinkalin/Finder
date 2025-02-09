@@ -33,7 +33,7 @@ class PersonService: ObservableObject {
             try? await Task.sleep(nanoseconds: 3_000_000_000)
             
             let updatedPersons = self.persons.map { person in
-                if let selectedPerson = self.personListViewModel?.selectedPerson, person.id == selectedPerson.id {
+                if let pinnedPerson = self.personListViewModel?.pinnedPerson, person.id == pinnedPerson.id {
                     return person
                 }
                 

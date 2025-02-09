@@ -13,13 +13,16 @@ import Combine
 class PersonListViewModel: NSObject, ObservableObject {
     @Published var persons: [Person] = []
     @Published var selectedPerson: Person?
+    @Published var pinnedPerson: Person?
     @Published var userLocation: CLLocationCoordinate2D?
     @Published var isLoading = true
     
     private var personService: PersonService?
     private let locationManager = CLLocationManager()
     private var cancellable: Set<AnyCancellable> = []
-
+    
+    private var pinnedPersonLocation: CLLocationCoordinate2D?
+    
     override init() {
         super.init()
         
@@ -50,8 +53,8 @@ class PersonListViewModel: NSObject, ObservableObject {
     func distance(to person: Person) -> String {
         let referenceLocation: CLLocationCoordinate2D
         
-        if let selectedPerson = selectedPerson {
-            referenceLocation = selectedPerson.locationCoordinate
+        if let pinnedPerson = pinnedPerson {
+            referenceLocation = pinnedPersonLocation ?? pinnedPerson.locationCoordinate
         } else if let userLocation = userLocation {
             referenceLocation = userLocation
         } else {
@@ -67,6 +70,17 @@ class PersonListViewModel: NSObject, ObservableObject {
         selectedPerson = (selectedPerson?.id == person.id) ? nil : person
         objectWillChange.send()
     }
+    
+    func pinUser(_ person: Person) {
+        if pinnedPerson == nil {
+            pinnedPerson = person
+            pinnedPersonLocation = person.locationCoordinate
+        } else if pinnedPerson?.id == person.id {
+            pinnedPerson = nil
+            pinnedPersonLocation = nil
+        }
+        objectWillChange.send()
+    }
 }
 
 // MARK: - CLLocationManagerDelegate
@@ -75,7 +89,10 @@ extension PersonListViewModel: CLLocationManagerDelegate {
         guard let lastLocation = locations.last else { return }
         
         Task { @MainActor in
-            self.userLocation = lastLocation.coordinate
+            if pinnedPerson == nil {
+                self.userLocation = lastLocation.coordinate
+            }
         }
     }
 }
+
