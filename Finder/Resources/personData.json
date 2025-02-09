@@ -1,0 +1,92 @@
+[
+    {
+        "id": 1,
+        "name": "John Doe",
+        "avatarname": "aragorn",
+        "coordinates": {
+            "latitude": 59.995471,
+            "longitude": 30.249177
+        }
+    },
+    {
+        "id": 2,
+        "name": "Jane Smith",
+        "avatarname": "boromir",
+        "coordinates": {
+            "latitude": 59.995471,
+            "longitude": 30.249177
+        }
+    },
+    {
+        "id": 3,
+        "name": "Alice Johnson",
+        "avatarname": "frodo",
+        "coordinates": {
+            "latitude": 59.995471,
+            "longitude": 30.249177
+        }
+    },
+    {
+        "id": 4,
+        "name": "Bob Brown",
+        "avatarname": "galadriel",
+        "coordinates": {
+            "latitude": 59.995471,
+            "longitude": 30.249177
+        }
+    },
+    {
+        "id": 5,
+        "name": "Charlie Davis",
+        "avatarname": "gandalf",
+        "coordinates": {
+            "latitude": 59.995471,
+            "longitude": 30.249177
+        }
+    },
+    {
+        "id": 6,
+        "name": "Eve White",
+        "avatarname": "gimly",
+        "coordinates": {
+            "latitude": 59.995471,
+            "longitude": 30.249177
+        }
+    },
+    {
+        "id": 7,
+        "name": "Frank Wilson",
+        "avatarname": "legolas",
+        "coordinates": {
+            "latitude": 59.995471,
+            "longitude": 30.249177
+        }
+    },
+    {
+        "id": 8,
+        "name": "Grace Lee",
+        "avatarname": "sam",
+        "coordinates": {
+            "latitude": 59.995471,
+            "longitude": 30.249177
+        }
+    },
+    {
+        "id": 9,
+        "name": "Henry Harris",
+        "avatarname": "sauron",
+        "coordinates": {
+            "latitude": 59.995471,
+            "longitude": 30.249177
+        }
+    },
+    {
+        "id": 10,
+        "name": "Ivy Clark",
+        "avatarname": "wood",
+        "coordinates": {
+            "latitude": 59.995471,
+            "longitude": 30.249177
+        }
+    }
+]
