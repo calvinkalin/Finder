@@ -8,7 +8,14 @@
 import SwiftUI
 
 struct PersonRow: View {
+    var person: Person
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            person.avatar
+                .resizable()
+                .frame(width: 50, height: 50)
+            Text(person.name)
+        }
     }
 }

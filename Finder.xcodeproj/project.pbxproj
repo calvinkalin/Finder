@@ -11,7 +11,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		2606E4E22D550F7700872A40 /* Finder */ = {
+		263A3CD02D5659F100D51249 /* Finder */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Finder;
 			sourceTree = "<group>";
@@ -32,7 +32,7 @@
 		2606E4AB2D5508F000872A40 = {
 			isa = PBXGroup;
 			children = (
-				2606E4E22D550F7700872A40 /* Finder */,
+				263A3CD02D5659F100D51249 /* Finder */,
 				2606E4B52D5508F000872A40 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -61,7 +61,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				2606E4E22D550F7700872A40 /* Finder */,
+				263A3CD02D5659F100D51249 /* Finder */,
 			);
 			name = Finder;
 			packageProductDependencies = (

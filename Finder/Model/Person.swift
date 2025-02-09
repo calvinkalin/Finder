@@ -12,14 +12,13 @@ import CoreLocation
 struct Person: Hashable, Codable, Identifiable {
     var id: Int
     var name: String
-    var isSelected: Bool
     
     private var avatarName: String
     var avatar: Image {
         Image(avatarName)
     }
     
-    private var coordinates: Coordinates
+    var coordinates: Coordinates
     var locationCoordinate: CLLocationCoordinate2D {
         CLLocationCoordinate2D(
             latitude: coordinates.latitude,
