@@ -13,6 +13,11 @@ struct PersonList: View {
     var body: some View {
         NavigationView {
             VStack {
+                if let pinnedPerson = viewModel.pinnedPerson {
+                    SelectedPersonRow(person: pinnedPerson)
+                        .padding()
+                }
+                
                 if viewModel.isLoading {
                     Spacer()
                     ProgressView("Загрузка...")
@@ -20,18 +25,14 @@ struct PersonList: View {
                         .padding()
                     Spacer()
                 } else {
-                    if let selectedPerson = viewModel.selectedPerson {
-                        SelectedPersonRow(person: selectedPerson)
-                            .padding()
-                    }
                     List(viewModel.persons) { person in
-                        PersonRow(
-                            person: person,
-                            distance: viewModel.distance(to: person),
-                            isSelected: viewModel.selectedPerson?.id == person.id
-                        )
-                        .onTapGesture {
-                            viewModel.toggleSelection(for: person)
+                        NavigationLink(destination: MapViewScreen(person: person)) {
+                            PersonRow(
+                                person: person,
+                                distance: viewModel.distance(to: person),
+                                isPinned: viewModel.pinnedPerson?.id == person.id,
+                                onPin: { viewModel.pinUser(person) }
+                            )
                         }
                     }
                 }

@@ -10,7 +10,8 @@ import SwiftUI
 struct PersonRow: View {
     var person: Person
     var distance: String
-    var isSelected: Bool
+    var isPinned: Bool
+    var onPin: () -> Void
     
     var body: some View {
         HStack {
@@ -19,6 +20,7 @@ struct PersonRow: View {
                 .frame(width: 50, height: 50)
                 .clipShape(Circle())
                 .overlay(Circle().stroke(Color.gray, lineWidth: 2))
+            
             VStack(alignment: .leading) {
                 Text(person.name)
                     .font(.headline)
@@ -26,10 +28,19 @@ struct PersonRow: View {
                     .font(.subheadline)
                     .foregroundColor(.gray)
             }
+            
             Spacer()
+            
+            Button(action: {
+                onPin()
+            }) {
+                Image(systemName: isPinned ? "pin.fill" : "pin")
+                    .foregroundColor(isPinned ? .cyan : .gray)
+            }
+            .buttonStyle(PlainButtonStyle())
         }
         .padding()
-        .background(isSelected ? Color.cyan.opacity(0.1) : Color.clear)
+        .background(isPinned ? Color.cyan.opacity(0.1) : Color.clear)
         .cornerRadius(8)
     }
 }
