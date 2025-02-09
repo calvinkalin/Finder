@@ -18,7 +18,7 @@ class PersonService: ObservableObject {
         loadPersons()
     }
     
-    private func loadPersons() {
+    func loadPersons() {
         guard let url = Bundle.main.url(forResource: "personData", withExtension: "json"),
               let data = try? Data(contentsOf: url),
               let loadedPersons = try? JSONDecoder().decode([Person].self, from: data) else {

@@ -79,4 +79,3 @@ extension PersonListViewModel: CLLocationManagerDelegate {
         }
     }
 }
-
