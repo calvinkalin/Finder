@@ -12,7 +12,7 @@ struct PersonList: View {
     
     var body: some View {
         NavigationView {
-            VStack {
+            List {
                 if viewModel.userLocation == nil {
                     ZStack {
                         Text("Геолокация отключена. Включите доступ в настройках.")
@@ -23,17 +23,24 @@ struct PersonList: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
                     if viewModel.isLoading {
-                        Spacer()
-                        ProgressView("Загрузка...")
-                            .progressViewStyle(CircularProgressViewStyle())
-                            .padding()
-                        Spacer()
+                        Section {
+                            HStack {
+                                Spacer()
+                                ProgressView("Загрузка...")
+                                    .progressViewStyle(CircularProgressViewStyle())
+                                    .padding()
+                                Spacer()
+                            }
+                        }
                     } else {
                         if let selectedPerson = viewModel.selectedPerson {
-                            SelectedPersonRow(person: selectedPerson)
-                                .padding()
+                            Section {
+                                SelectedPersonRow(person: selectedPerson)
+                                    .padding(.vertical, 5)
+                            }
+                            .listSectionSeparator(.hidden)
                         }
-                        List(viewModel.persons) { person in
+                        ForEach(viewModel.persons) { person in
                             PersonRow(
                                 person: person,
                                 distance: viewModel.distance(to: person),
