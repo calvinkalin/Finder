@@ -72,7 +72,12 @@ class PersonListViewModel: NSObject, ObservableObject {
         
         let personLocation = person.locationCoordinate
         let distanceMeters = referenceLocation.distance(to: personLocation)
-        return String(format: "%.1f km", distanceMeters / 1000)
+        
+        if distanceMeters < 1000 {
+            return String(format: "%.0f m", distanceMeters)
+        } else {
+            return String(format: "%.1f km", distanceMeters / 1000)
+        }
     }
     
     func toggleSelection(for person: Person) {
