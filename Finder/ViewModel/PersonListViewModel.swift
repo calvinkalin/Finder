@@ -15,6 +15,7 @@ class PersonListViewModel: NSObject, ObservableObject {
     @Published var selectedPerson: Person?
     @Published var userLocation: CLLocationCoordinate2D?
     @Published var isLoading = true
+    @Published var showLocationAlert = false
     
     private var personService: PersonService?
     private let locationManager = CLLocationManager()
@@ -43,9 +44,20 @@ class PersonListViewModel: NSObject, ObservableObject {
     
     func setupLocationManager() {
         locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
+        let status = locationManager.authorizationStatus
+
+        switch status {
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+        case .authorizedWhenInUse, .authorizedAlways:
+            locationManager.startUpdatingLocation()
+        case .denied, .restricted:
+            handleLocationDenied()
+        @unknown default:
+            break
+        }
     }
+
     
     func distance(to person: Person) -> String {
         let referenceLocation: CLLocationCoordinate2D
@@ -67,6 +79,11 @@ class PersonListViewModel: NSObject, ObservableObject {
         selectedPerson = (selectedPerson?.id == person.id) ? nil : person
         objectWillChange.send()
     }
+    
+    private func handleLocationDenied() {
+        self.userLocation = nil
+        self.showLocationAlert = true
+    }
 }
 
 // MARK: - CLLocationManagerDelegate
@@ -76,6 +93,21 @@ extension PersonListViewModel: CLLocationManagerDelegate {
         
         Task { @MainActor in
             self.userLocation = lastLocation.coordinate
+        }
+    }
+    
+    nonisolated func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        let status = manager.authorizationStatus
+        
+        Task { @MainActor in
+            switch status {
+            case .authorizedWhenInUse, .authorizedAlways:
+                self.locationManager.startUpdatingLocation()
+            case .denied, .restricted:
+                self.handleLocationDenied()
+            default:
+                break
+            }
         }
     }
 }
