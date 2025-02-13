@@ -18,6 +18,7 @@ struct SelectedPersonRow: View {
                 .font(.subheadline)
                 .foregroundColor(.gray)
         }
+        .frame(maxWidth: .infinity)
         .padding()
         .background(Color.cyan.opacity(0.1))
         .cornerRadius(10)

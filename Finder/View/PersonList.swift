@@ -12,26 +12,43 @@ struct PersonList: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                if viewModel.isLoading {
-                    Spacer()
-                    ProgressView("Загрузка...")
-                        .progressViewStyle(CircularProgressViewStyle())
-                        .padding()
-                    Spacer()
-                } else {
-                    if let selectedPerson = viewModel.selectedPerson {
-                        SelectedPersonRow(person: selectedPerson)
+            List {
+                if viewModel.userLocation == nil {
+                    ZStack {
+                        Text("Геолокация отключена. Включите доступ в настройках.")
+                            .foregroundColor(.black)
+                            .multilineTextAlignment(.center)
                             .padding()
                     }
-                    List(viewModel.persons) { person in
-                        PersonRow(
-                            person: person,
-                            distance: viewModel.distance(to: person),
-                            isSelected: viewModel.selectedPerson?.id == person.id
-                        )
-                        .onTapGesture {
-                            viewModel.toggleSelection(for: person)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                } else {
+                    if viewModel.isLoading {
+                        Section {
+                            HStack {
+                                Spacer()
+                                ProgressView("Загрузка...")
+                                    .progressViewStyle(CircularProgressViewStyle())
+                                    .padding()
+                                Spacer()
+                            }
+                        }
+                    } else {
+                        if let selectedPerson = viewModel.selectedPerson {
+                            Section {
+                                SelectedPersonRow(person: selectedPerson)
+                                    .padding(.vertical, 5)
+                            }
+                            .listSectionSeparator(.hidden)
+                        }
+                        ForEach(viewModel.persons) { person in
+                            PersonRow(
+                                person: person,
+                                distance: viewModel.distance(to: person),
+                                isSelected: viewModel.selectedPerson?.id == person.id
+                            )
+                            .onTapGesture {
+                                viewModel.toggleSelection(for: person)
+                            }
                         }
                     }
                 }
@@ -39,6 +56,16 @@ struct PersonList: View {
             .navigationTitle("Люди рядом")
             .onAppear {
                 viewModel.setupLocationManager()
+            }
+            .alert("Геолокация отключена", isPresented: $viewModel.showLocationAlert) {
+                Button("Настройки") {
+                    if let settings = URL(string: UIApplication.openSettingsURLString) {
+                        UIApplication.shared.open(settings)
+                    }
+                }
+                Button("Отмена", role: .cancel) { }
+            } message: {
+                Text("Включите геолокацию для корректной работы приложения.")
             }
         }
     }
